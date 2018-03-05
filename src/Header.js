@@ -13,14 +13,14 @@ class Header extends Component {
     render() {
         return (
             <div className="header">
-                <div className="name">
-                    Zachary Diemer<span className="blinking-cursor">|</span>
-                </div>
+                <div className="name">Zachary Diemer</div>
 
                 <div className="links">
                     <a className="link" href="/work">Work</a>
                     <a className="link" href="/about">About</a>
-                    <a className="link" href="/contact">Contact</a>
+                    <a className="link"
+                        style={{ "border-right": "none" }}
+                        href="/contact">Contact</a>
                 </div>
 
                 <div className="social">
@@ -40,7 +40,7 @@ class Header extends Component {
                         <FontAwesomeIcon icon={faLinkedin} />
                     </a>
                 </div>
-            </div>
+            </div >
         );
     }
 }

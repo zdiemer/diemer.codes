@@ -10,10 +10,10 @@ html {
 }
 
 a, a:hover, a:click, a:visited{
-  border: none;
-  outline: none;
-  text-decoration: none;
-  color: inherit;
+  border: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+  color: inherit !important;
 }
 
 @font-face {
