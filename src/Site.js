@@ -23,6 +23,10 @@ class Site extends Component {
           <div className="main-description">
             Software Engineer. Tinkerer. Lifelong student.
           </div>
+
+          <div className="about-me">
+            About Me -->
+          </div>
         </div>
 
         <div className="social">

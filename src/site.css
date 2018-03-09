@@ -44,23 +44,46 @@ a, a:hover, a:click, a:visited {
     blink-caret .5s step-end infinite alternate;
 }
 
-.main-description, .name, .zach-img {
-  margin: 0 auto;
-}
-
 .main-description {
-  margin-top: 1em;
+  margin-top: 1em !important;
   width: 46ch;
   font-style: italic;
   color: #eac67a;
   border: 1px dashed #595959;
 }
 
+.about-me {
+  width: fit-content;
+  margin-top: 3em !important;
+  padding: 1em;
+  cursor: pointer;
+  color: #c9c9c9;
+  background-color: #616161;
+  border-radius: 15px;
+  border: 1px solid lightgray;
+}
+
+.about-me:hover {
+  color: #202020;
+  background-color: lightgray;
+}
+
+.zach-img {
+  display: flex;
+  width: 20em;
+  border: 2px solid #e9e9e9;
+  border-radius: 50%;
+}
+
+.main-body div, .main-body img {
+  margin: 0 auto;
+}
+
 .social {
   display: flex;
   position: absolute;
-  margin-left: 5px;
-  margin-top: 5px;
+  margin-left: 1em;
+  margin-top: 1em;
 }
 
 .social .icon {
@@ -69,13 +92,6 @@ a, a:hover, a:click, a:visited {
   color: #eac67a;
   padding: 0 7px;
   text-decoration: none;
-}
-
-.zach-img {
-  display: flex;
-  width: 20em;
-  border: 2px solid #e9e9e9;
-  border-radius: 50%;
 }
 
 @keyframes typing {
@@ -95,6 +111,10 @@ a, a:hover, a:click, a:visited {
     font-size: 12pt;
   }
 
+  .learn-more {
+    font-size: 10pt;
+  }
+
   .name {
     font-size: 48pt;
   }
@@ -103,6 +123,10 @@ a, a:hover, a:click, a:visited {
 @media screen and (min-width: 545px) and (max-width: 919px) {
   div {
     font-size: 10pt;
+  }
+
+  .learn-more {
+    font-size: 8pt;
   }
 
   .name {
@@ -115,12 +139,13 @@ a, a:hover, a:click, a:visited {
     font-size: 8pt;
   }
 
+  .learn-more {
+    font-size: 6pt;
+  }
+
   .name {
     font-size: 24pt;
   }
 }
 
-@font-face {
-  font-family: "Fira Code";
-  src: url("FiraCode-Regular.ttf") format("truetype");
-}
+@import url("https://cdn.rawgit.com/tonsky/FiraCode/1.205/distr/fira_code.css");
