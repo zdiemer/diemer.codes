@@ -22,19 +22,19 @@ class Site extends Component {
         </div>
 
         <div className="social">
-          <a className="icon" href="https://twitter.com/zach_diemer">
+          <a className="icon" target="_blank" href="https://twitter.com/zach_diemer">
             <FontAwesomeIcon icon={faTwitterSquare} />
           </a>
 
-          <a className="icon" href="https://www.facebook.com/zdiemer">
+          <a className="icon" target="_blank" href="https://www.facebook.com/zdiemer">
             <FontAwesomeIcon icon={faFacebookSquare} />
           </a>
 
-          <a className="icon" href="https://github.com/zdiemer">
+          <a className="icon" target="_blank" href="https://github.com/zdiemer">
             <FontAwesomeIcon icon={faGithubSquare} />
           </a>
 
-          <a className="icon" href="https://www.linkedin.com/in/zach-diemer/">
+          <a className="icon" target="_blank" href="https://www.linkedin.com/in/zach-diemer/">
             <FontAwesomeIcon icon={faLinkedin} />
           </a>
         </div>
