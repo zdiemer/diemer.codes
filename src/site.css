@@ -29,9 +29,9 @@ a, a:hover, a:click, a:visited {
 }
 
 .main-body {
-  margin-top: 10%;
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-top: 10em;
+  margin-left: 5em;
+  margin-right: 5em;
   width: 100%;
 }
 
@@ -49,7 +49,7 @@ a, a:hover, a:click, a:visited {
 }
 
 .main-description {
-  margin-top: 10px;
+  margin-top: 1em;
   width: 46ch;
   font-style: italic;
   color: #eac67a;
@@ -73,7 +73,7 @@ a, a:hover, a:click, a:visited {
 
 .zach-img {
   display: flex;
-  width: 30%;
+  width: 20em;
   border: 2px solid #e9e9e9;
   border-radius: 50%;
 }
@@ -100,23 +100,23 @@ a, a:hover, a:click, a:visited {
   }
 }
 
-@media screen and (min-width: 400px) and (max-width: 919px) {
+@media screen and (min-width: 545px) and (max-width: 919px) {
+  div {
+    font-size: 10pt;
+  }
+
+  .name {
+    font-size: 36pt;
+  }
+}
+
+@media screen and (max-width: 544px) {
   div {
     font-size: 8pt;
   }
 
   .name {
     font-size: 24pt;
-  }
-}
-
-@media screen and (max-width: 399px) {
-  div {
-    font-size: 6pt;
-  }
-
-  .name {
-    font-size: 16pt;
   }
 }
 
