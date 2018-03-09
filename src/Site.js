@@ -15,31 +15,33 @@ class Site extends Component {
   render() {
     return (
       <div className="site-content">
-        <div className="name">Zachary Diemer</div>
+        <div className="main-body">
+          <img className="zach-img" src={Zach} alt="Zach Diemer" />
 
-        <div className="description">
-          Software Engineer. Tinkerer. Lifelong student.
+          <div className="name">Zachary Diemer</div>
+
+          <div className="main-description">
+            Software Engineer. Tinkerer. Lifelong student.
+          </div>
         </div>
 
         <div className="social">
-          <a className="icon" target="_blank" href="https://twitter.com/zach_diemer">
+          <a className="icon" target="_blank" rel="noopener noreferrer" href="https://twitter.com/zach_diemer">
             <FontAwesomeIcon icon={faTwitterSquare} />
           </a>
 
-          <a className="icon" target="_blank" href="https://www.facebook.com/zdiemer">
+          <a className="icon" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/zdiemer">
             <FontAwesomeIcon icon={faFacebookSquare} />
           </a>
 
-          <a className="icon" target="_blank" href="https://github.com/zdiemer">
+          <a className="icon" target="_blank" rel="noopener noreferrer" href="https://github.com/zdiemer">
             <FontAwesomeIcon icon={faGithubSquare} />
           </a>
 
-          <a className="icon" target="_blank" href="https://www.linkedin.com/in/zach-diemer/">
+          <a className="icon" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/zach-diemer/">
             <FontAwesomeIcon icon={faLinkedin} />
           </a>
         </div>
-
-        <img src={Zach} alt="Zach Diemer" />
       </div >
     );
   }

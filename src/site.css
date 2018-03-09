@@ -9,7 +9,7 @@ html {
   color: #000000;
 }
 
-a, a:hover, a:click, a:visited{
+a, a:hover, a:click, a:visited {
   border: none !important;
   outline: none !important;
   text-decoration: none !important;
@@ -17,65 +17,53 @@ a, a:hover, a:click, a:visited{
 }
 
 .site-content {
-    background: #202020;
-    color: #e9e9e9;
-    font-family: "Fira Code";
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  display: flex;
+  background: #202020;
+  color: #e9e9e9;
+  font-family: "Fira Code";
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.site-content .name {
-    display: inline-block;
-    position: absolute;
-    width: 14ch;
-    height: 56pt;
-    font-weight: 100;
-    font-size: 48pt;
-    padding: 5px 0 0 5px;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: .1em solid #eac67a;
-    animation: 
-      typing 2s steps(14, end),
-      blink-caret .5s step-end infinite alternate;
-    color: #e9e9e9;
-    font-family: "Fira Code";
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+.main-body {
+  margin-top: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 100%;
 }
 
-.site-content .description {
-  position: absolute;
-  display: inline-block;
-  margin: auto;
-  left: 0;
-  right: 0;
-  top: 110px;
-  bottom: 0;
+.name {
+  width: 14ch;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: .1em solid #eac67a;
+  animation: typing 2s steps(14, end), 
+    blink-caret .5s step-end infinite alternate;
+}
+
+.main-description, .name, .zach-img {
+  margin: 0 auto;
+}
+
+.main-description {
+  margin-top: 10px;
   width: 46ch;
-  height: 10px;
   font-style: italic;
-  color: #eac67a
+  color: #eac67a;
+  border: 1px dashed #595959;
 }
 
-.site-content .social {
-    display: inline-block;
-    margin-left: 5px;
-    margin-top: 5px;
+.social {
+  display: flex;
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
-.site-content .social .icon {
+.social .icon {
   font-weight: 100;
   font-size: 24pt;
   color: #eac67a;
@@ -83,23 +71,53 @@ a, a:hover, a:click, a:visited{
   text-decoration: none;
 }
 
-.site-content img {
-  position: absolute;
-  display: inline-block;
-  margin: auto;
-  right: 10px;
-  top: 10px;
-  height: 15%;
+.zach-img {
+  display: flex;
+  width: 30%;
   border: 2px solid #e9e9e9;
   border-radius: 50%;
 }
 
 @keyframes typing {
-  from { width: 0; }
+  from {
+    width: 0;
+  }
 }
 
 @keyframes blink-caret {
-  50% { border-color: transparent; }
+  50% {
+    border-color: transparent;
+  }
+}
+
+@media screen and (min-width: 920px) {
+  div {
+    font-size: 12pt;
+  }
+
+  .name {
+    font-size: 48pt;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 919px) {
+  div {
+    font-size: 8pt;
+  }
+
+  .name {
+    font-size: 24pt;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  div {
+    font-size: 6pt;
+  }
+
+  .name {
+    font-size: 16pt;
+  }
 }
 
 @font-face {
