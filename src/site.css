@@ -30,8 +30,6 @@ a, a:hover, a:click, a:visited {
 
 .main-body {
   margin-top: 10em;
-  margin-left: 5em;
-  margin-right: 5em;
   width: 100%;
 }
 
@@ -52,18 +50,21 @@ a, a:hover, a:click, a:visited {
   border: 1px dashed #595959;
 }
 
-.about-me {
+.about-me-container {
   width: fit-content;
   margin-top: 3em !important;
+}
+
+.about-me {
   padding: 1em;
-  cursor: pointer;
   color: #c9c9c9;
   background-color: #616161;
-  border-radius: 15px;
+  border-radius: 1em;
+  cursor: pointer;
   border: 1px solid lightgray;
 }
 
-.about-me:hover {
+.about-me:hover, .about-me:active {
   color: #202020;
   background-color: lightgray;
 }

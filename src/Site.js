@@ -24,8 +24,8 @@ class Site extends Component {
             Software Engineer. Tinkerer. Lifelong student.
           </div>
 
-          <div className="about-me">
-            About Me -->
+          <div className="about-me-container">
+            <a className="about-me">About Me --></a>
           </div>
         </div>
 
