@@ -22,6 +22,14 @@ a, a:hover, a:click, a:visited {
   color: inherit !important;
 }
 
+::selection {
+  background: #7fdbff;
+}
+
+::-moz-selection {
+  background: #7fdbff;
+}
+
 .site-content {
   display: flex;
   background: #202020;
