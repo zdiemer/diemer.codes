@@ -280,6 +280,8 @@ a, a:hover, a:click, a:visited {
   }
 
   .zach-nyc {
+    float: none;
+    display: inherit;
     margin-top: 1em !important;
     margin-bottom: 1em !important;
   }
