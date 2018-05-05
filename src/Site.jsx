@@ -11,7 +11,8 @@ import {
   faPython,
   faNode,
   faReact,
-  faChrome
+  faChrome,
+  faGoogle
 } from "@fortawesome/fontawesome-free-brands";
 
 import { faHeart } from "@fortawesome/fontawesome-free-solid";
@@ -44,11 +45,11 @@ class Site extends Component {
 
               <img className="zach-nyc" src={ZachNYC} alt="Zach Diemer in NYC" />
 
-              <p>I've always been fascinated by <span style={{ "text-decoration": "underline !important" }}>how things work</span>, and that fascination has permeated into every facet of my life. I currently spend my work days writing code in JavaScript <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faJs} />, Node.js <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faNodeJs} />, and Python <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faPython} />. In my free time, I enjoy tinkering with everything from my collection of Raspberry Pis to optimizing a Minecraft server. Technology defines a big part of who I am, and I'm grateful for the opportunity to embrace it daily.</p>
+              <p>I've always been fascinated by <span style={{ "text-decoration": "underline !important" }}>how things work</span>, and that fascination has permeated into every facet of my life. I currently spend my days writing code in C# and React <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faReact} />. In my free time, I enjoy tinkering with everything from my collection of Raspberry Pis to optimizing a Minecraft server. Technology defines a big part of who I am, and I'm grateful for the opportunity to embrace it daily.</p>
 
-              <p>Currently, I work as a software engineer at <span style={{ color: "white", background: "#00aeef", "padding-left": "0.25em", "padding-right": "0.25em" }}>Nielsen</span> in Tampa, FL. Here at Nielsen I've been granted the opportunity to work on a number of exciting projects and I've been exposed to plenty of new technology stacks. Not to mention the wonderful people I've had the privilege and pleasure of working with! I've been able to work on projects as varied as React <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faReact} /> web applications, Chrome <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faChrome} /> extensions, cloud architecting, and more. It's been a valuable experience so far, and I'm hopeful that the future will bring many more interesting and unique projects.</p>
+              <p>Currently, I work at Google <FontAwesomeIcon style={{ color: "#4885ed" }} icon={faGoogle} /> as a software engineer on <a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com">Kaggle</a> in San Francisco, CA. I've only recently begun my Google journey, but I'm excited to see where the road leads.</p>
 
-              <p>Aside from Nielsen, I've also worked previously at <span style={{ color: "#037ea9", background: "#bad13b", "padding-left": "0.25em", "padding-right": "0.25em" }}>Rating Dynamics</span> in Tallahassee, FL, where I worked extensively with C#, .NET Framework, and ASP.NET. As my first foray into the field of professional software development, I was exposed to what it's like to actually work in a professional environment, and the lessons I learned from there are lessons that will stick with me for a long time throughout my career. Working on a small team engenders (and requires) a great degree of trust and respect, and Rating Dynamics was certainly a place where I felt a mutual sense of each of these.</p>
+              <p>In the past, I've worked as a software engineer at <span style={{ color: "white", background: "#00aeef", "padding-left": "0.25em", "padding-right": "0.25em" }}>Nielsen</span> in Tampa, FL and <span style={{ color: "#037ea9", background: "#bad13b", "padding-left": "0.25em", "padding-right": "0.25em" }}>Rating Dynamics</span> in Tallahassee, FL. At Nielsen I worked on projects as varied as React <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faReact} /> web applications, Chrome <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faChrome} /> extensions, cloud architecting, and more. At Rating Dynamics, I worked extensively with C#, .NET Framework, and ASP.NET.</p>
 
               <p>Software development isn't the only aspect of my character. I'm also an avid reader, board gamer, and disc golfer. My Kindle and I are often inseparable, and hardly a weekend goes by without either board gaming or throwing a round of disc golf. I find it valuable to be a balanced individual in every aspect of life, so being able to pursue hobbies and growth outside of my career is something which I take extremely seriously.</p>
 
