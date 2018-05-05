@@ -49,9 +49,10 @@ a:hover {
 
 .main-body::after {
   content: '';
-  background: url("../images/sf.jpg") no-repeat;
-  background-size: 100%;
+  background: url("../images/sf.jpg") 0 0 no-repeat;
+  background-size: cover;
   background-attachment: fixed;
+  background-position: 100% center;
   opacity: 0.5;
   top: 0;
   left: 0;
