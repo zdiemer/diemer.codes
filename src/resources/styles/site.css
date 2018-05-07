@@ -151,13 +151,12 @@ a:hover {
 }
 
 .footer {
-  height: 10%;
   text-align: right;
   background: #202020;
   color: #c9c9c9;
-  margin-top: 1em !important;
-  margin-bottom: 1em !important;
-  margin-right: 2em !important;
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
+  padding-right: 2em !important;
   opacity: 0.5;
   font-style: italic;
 }
