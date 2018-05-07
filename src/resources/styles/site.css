@@ -171,9 +171,8 @@ a:hover {
 }
 
 .social {
-  display: flex;
-  position: absolute;
-  margin-left: 1em;
+  position: fixed;
+  margin-left: 0.3em;
   margin-top: 1em;
   z-index: 9000;
 }
@@ -303,6 +302,12 @@ a:hover {
     display: inherit;
     margin-top: 1em !important;
     margin-bottom: 1em !important;
+  }
+}
+
+@media screen and (max-device-aspect-ratio: 10/16) {
+  .social {
+    width: 45px;
   }
 }
 
