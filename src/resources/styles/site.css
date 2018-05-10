@@ -103,6 +103,7 @@ a:hover {
   font-family: "Ubuntu", sans-serif;
   height: fit-content;
   background: #ffffff;
+  overflow: hidden;
 }
 
 .about-me-body h1 {
@@ -158,6 +159,8 @@ a:hover {
   padding-right: 2em !important;
   opacity: 0.5;
   font-style: italic;
+  bottom: 0;
+  right: 0;
 }
 
 .main-body div, .main-body img {
