@@ -185,6 +185,12 @@ a:hover {
   color: #eac67a;
   padding: 0 7px;
   text-decoration: none;
+  stroke: #323232;
+  stroke-width: 12px;
+}
+
+.social .icon:hover {
+  color: #e29f12;
 }
 
 @keyframes typing {
@@ -304,6 +310,7 @@ a:hover {
     display: inherit;
     margin-top: 1em !important;
     margin-bottom: 1em !important;
+    width: 15em;
   }
 }
 
