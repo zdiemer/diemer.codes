@@ -313,6 +313,10 @@ a:hover {
   .social {
     width: 45px;
   }
+
+  .social .icon {
+    padding: 0;
+  }
 }
 
 @import url("https://cdn.rawgit.com/tonsky/FiraCode/1.205/distr/fira_code.css");
