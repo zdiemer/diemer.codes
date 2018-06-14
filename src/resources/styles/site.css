@@ -139,6 +139,7 @@ a:hover {
   width: fit-content;
   color: #202020;
   margin-bottom: 2em !important;
+  letter-spacing: 0.1em;
 }
 
 .contact .method {
