@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 
 import {
-  faTwitterSquare,
-  faFacebookSquare,
-  faGithubSquare,
-  faLinkedin,
-  faJs,
-  faNodeJs,
-  faPython,
-  faNode,
-  faReact,
-  faChrome,
-  faGoogle
+    faTwitterSquare,
+    faFacebookSquare,
+    faGithubSquare,
+    faLinkedin,
+    faReact,
+    faChrome,
+    faGoogle
 } from "@fortawesome/fontawesome-free-brands";
 
 import { faHeart } from "@fortawesome/fontawesome-free-solid";
@@ -21,72 +18,158 @@ import Zach from "./resources/images/zach.png";
 import ZachNYC from "./resources/images/zach-nyc.jpg";
 import "./resources/styles/site.css";
 
-class Site extends Component {
-  render() {
-    return (
-      <div className="site-content">
-        <div className="main-body">
-          <div className="basic-information">
-            <img className="zach-img" src={Zach} alt="Zach Diemer" />
+export class DiemerCodes extends Component {
+    render() {
+        return (
+            <div className="site-content">
+                <div className="main-body">
+                    <div className="basic-information">
+                        <img className="zach-img" src={Zach} alt="Zach Diemer" />
 
-            <div className="name">Zachary Diemer</div>
+                        <div className="name">Zachary Diemer</div>
 
-            <div className="main-description">
-              Software Engineer. Tinkerer. Lifelong student.
+                        <div className="main-description">
+                            Software Engineer. Tinkerer. Lifelong student.
             </div>
+                    </div>
+
+                    <div className="separator" />
+
+                    <div className="about-me-body">
+                        <h1>About Me</h1>
+                        <div className="about-me-content">
+                            <p><span style={{ "font-family": "monospace", "font-weight": "bold" }}>Hello World!</span> My name is Zachary Diemer, and I'm a software engineer. I graduated from <span style={{ color: "#782f40", background: "#ceb888", "padding-left": "0.25em", "padding-right": "0.25em" }}>Florida State University</span> with a Bachelor of Science in Computer Science in 2016 and have been knee-deep in code ever since. I consider myself a generalist when it comes to software engineering, and strive to understand as many aspects of the craft as I can--despite the impossibility of such an undertaking. I aspire to write code that has a real and positive impact on the world.</p>
+
+                            <img className="zach-nyc" src={ZachNYC} alt="Zach Diemer in NYC" />
+
+                            <p>I've always been fascinated by <span style={{ "text-decoration": "underline !important" }}>how things work</span>, and that fascination has permeated into every facet of my life. I currently spend my days writing code in C# and React <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faReact} />. In my free time, I enjoy tinkering with everything from my collection of Raspberry Pis to optimizing a Minecraft server. Technology defines a big part of who I am, and I'm grateful for the opportunity to embrace it daily.</p>
+
+                            <p>Currently, I work at Google <FontAwesomeIcon style={{ color: "#4885ed" }} icon={faGoogle} /> as a software engineer on <a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com">Kaggle</a> in San Francisco, CA. I've only recently begun my Google journey, but I'm excited to see where the road leads.</p>
+
+                            <p>In the past, I've worked as a software engineer at <span style={{ color: "white", background: "#00aeef", "padding-left": "0.25em", "padding-right": "0.25em" }}>Nielsen</span> in Tampa, FL and <span style={{ color: "#037ea9", background: "#bad13b", "padding-left": "0.25em", "padding-right": "0.25em" }}>Rating Dynamics</span> in Tallahassee, FL. At Nielsen I worked on projects as varied as React <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faReact} /> web applications, Chrome <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faChrome} /> extensions, cloud architecting, and more. At Rating Dynamics, I worked extensively with C#, .NET Framework, and ASP.NET.</p>
+
+                            <p>Software development isn't the only aspect of my character. I'm also an avid reader, board gamer, and disc golfer. My Kindle and I are often inseparable, and hardly a weekend goes by without either board gaming or throwing a round of disc golf. I find it valuable to be a balanced individual in every aspect of life, so being able to pursue hobbies and growth outside of my career is something which I take extremely seriously.</p>
+
+                            <p>I'd love to hear from you if you want to know anything else about me, or if you'd like to chat!</p>
+                        </div>
+
+                        <div className="contact">
+                            <div className="method" id="phone">(850) 509-1236</div>
+                            <div className="method" id="email"><a href="mailto:zach@diemer.codes?Subject=Hello%20Zach!" target="_top">zach@diemer.codes</a></div>
+                        </div>
+                    </div>
+
+                    <div className="footer">
+                        Hand crafted with <FontAwesomeIcon icon={faHeart} /> by Zachary Diemer
           </div>
 
-          <div className="separator" />
+                </div>
+                <div className="social">
+                    <a className="icon" target="_blank" rel="noopener noreferrer" href="https://twitter.com/zach_diemer">
+                        <FontAwesomeIcon icon={faTwitterSquare} />
+                    </a>
 
-          <div className="about-me-body">
-            <h1>About Me</h1>
-            <div className="about-me-content">
-              <p><span style={{ "font-family": "monospace", "font-weight": "bold" }}>Hello World!</span> My name is Zachary Diemer, and I'm a software engineer. I graduated from <span style={{ color: "#782f40", background: "#ceb888", "padding-left": "0.25em", "padding-right": "0.25em" }}>Florida State University</span> with a Bachelor of Science in Computer Science in 2016 and have been knee-deep in code ever since. I consider myself a generalist when it comes to software engineering, and strive to understand as many aspects of the craft as I can--despite the impossibility of such an undertaking. I aspire to write code that has a real and positive impact on the world.</p>
+                    <a className="icon" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/zdiemer">
+                        <FontAwesomeIcon icon={faFacebookSquare} />
+                    </a>
 
-              <img className="zach-nyc" src={ZachNYC} alt="Zach Diemer in NYC" />
+                    <a className="icon" target="_blank" rel="noopener noreferrer" href="https://github.com/zdiemer">
+                        <FontAwesomeIcon icon={faGithubSquare} />
+                    </a>
 
-              <p>I've always been fascinated by <span style={{ "text-decoration": "underline !important" }}>how things work</span>, and that fascination has permeated into every facet of my life. I currently spend my days writing code in C# and React <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faReact} />. In my free time, I enjoy tinkering with everything from my collection of Raspberry Pis to optimizing a Minecraft server. Technology defines a big part of who I am, and I'm grateful for the opportunity to embrace it daily.</p>
-
-              <p>Currently, I work at Google <FontAwesomeIcon style={{ color: "#4885ed" }} icon={faGoogle} /> as a software engineer on <a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com">Kaggle</a> in San Francisco, CA. I've only recently begun my Google journey, but I'm excited to see where the road leads.</p>
-
-              <p>In the past, I've worked as a software engineer at <span style={{ color: "white", background: "#00aeef", "padding-left": "0.25em", "padding-right": "0.25em" }}>Nielsen</span> in Tampa, FL and <span style={{ color: "#037ea9", background: "#bad13b", "padding-left": "0.25em", "padding-right": "0.25em" }}>Rating Dynamics</span> in Tallahassee, FL. At Nielsen I worked on projects as varied as React <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faReact} /> web applications, Chrome <FontAwesomeIcon style={{ opacity: 0.5 }} icon={faChrome} /> extensions, cloud architecting, and more. At Rating Dynamics, I worked extensively with C#, .NET Framework, and ASP.NET.</p>
-
-              <p>Software development isn't the only aspect of my character. I'm also an avid reader, board gamer, and disc golfer. My Kindle and I are often inseparable, and hardly a weekend goes by without either board gaming or throwing a round of disc golf. I find it valuable to be a balanced individual in every aspect of life, so being able to pursue hobbies and growth outside of my career is something which I take extremely seriously.</p>
-
-              <p>I'd love to hear from you if you want to know anything else about me, or if you'd like to chat!</p>
-            </div>
-
-            <div className="contact">
-              <div className="method" id="phone">(850) 509-1236</div>
-              <div className="method" id="email"><a href="mailto:zach@diemer.codes?Subject=Hello%20Zach!" target="_top">zach@diemer.codes</a></div>
-            </div>
-          </div>
-
-          <div className="footer">
-            Hand crafted with <FontAwesomeIcon icon={faHeart} /> by Zachary Diemer
-          </div>
-
-        </div>
-        <div className="social">
-          <a className="icon" target="_blank" rel="noopener noreferrer" href="https://twitter.com/zach_diemer">
-            <FontAwesomeIcon icon={faTwitterSquare} />
-          </a>
-
-          <a className="icon" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/zdiemer">
-            <FontAwesomeIcon icon={faFacebookSquare} />
-          </a>
-
-          <a className="icon" target="_blank" rel="noopener noreferrer" href="https://github.com/zdiemer">
-            <FontAwesomeIcon icon={faGithubSquare} />
-          </a>
-
-          <a className="icon" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/zach-diemer/">
-            <FontAwesomeIcon icon={faLinkedin} />
-          </a>
-        </div>
-      </div >
-    );
-  }
+                    <a className="icon" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/zach-diemer/">
+                        <FontAwesomeIcon icon={faLinkedin} />
+                    </a>
+                </div>
+            </div >
+        );
+    }
 }
 
-export default Site;
+const SiteContainer = styled.div`
+
+`;
+
+const BodyContainer = styled.div`
+
+`;
+
+const Header = styled.div`
+
+`;
+
+const HeaderImage = styled.img`
+
+`;
+
+const HeaderName = styled.div`
+
+`;
+
+const HeaderDescription = styled.div`
+
+`;
+
+const Divider = styled.div`
+
+`;
+
+const AboutMeContainer = styled.div`
+
+`;
+
+const AboutMeHeader = styled.h1`
+
+`;
+
+const AboutMeContent = styled.div`
+
+`;
+
+const AboutMeContentParagraph = styled.p`
+
+`;
+
+const AboutMeContentImage = styled.img`
+
+`;
+
+const AboutMeContentHighlight = styled.span`
+
+`;
+
+const AboutMeContentLink = styled.a`
+
+`;
+
+const AboutMeContact = styled.div`
+
+`;
+
+const AboutMeContactPhone = styled.div`
+
+`;
+
+const AboutMeContactEmail = styled.div`
+
+`;
+
+const AboutMeContactEmailLink = styled.a`
+
+`;
+
+const Icon = styled(FontAwesomeIcon)`
+
+`;
+
+const SiteFooter = styled.div`
+
+`;
+
+const SocialContainer = styled.div`
+
+`;
+
+const SocialLink = styled.a`
+
+`;

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Site from "./Site";
+import { DiemerCodes } from "./Site";
 import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(<Site />, document.getElementById("root"));
+ReactDOM.render(<DiemerCodes />, document.getElementById("root"));
 registerServiceWorker();
