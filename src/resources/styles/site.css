@@ -19,10 +19,14 @@ html {
 a {
   text-decoration: none;
   color: #009bff;
+  transition: border-bottom 0.5s;
+  padding-bottom: 1px;
+  border-bottom: 1px solid transparent;
 }
 
 a:hover {
   color: #0089e2;
+  border-bottom: 1px solid #0089e2;
 }
 
 ::selection {
@@ -39,6 +43,7 @@ a:hover {
   color: #e9e9e9;
   font-family: "Fira Code", sans-serif;
   height: 100%;
+  width: 100%;
 }
 
 .main-body {
@@ -122,9 +127,8 @@ a:hover {
   text-align: justify;
   line-height: 1.5em;
   color: #616161;
-  margin-left: 4em !important;
-  margin-right: 4em !important;
   padding-bottom: 2em;
+  margin: 0 4em;
 }
 
 .zach-nyc {
@@ -187,6 +191,10 @@ a:hover {
   color: #eac67a;
   padding: 0 7px;
   text-decoration: none;
+}
+
+.social .icon:hover {
+  border-bottom: none;
 }
 
 @keyframes typing {
@@ -316,6 +324,16 @@ a:hover {
 
   .social .icon {
     padding: 0;
+  }
+
+  .about-me-content {
+    width: 80vw;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .zach-nyc {
+    width: 100%;
   }
 }
 
