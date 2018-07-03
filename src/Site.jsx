@@ -16,6 +16,7 @@ import { faHeart } from "@fortawesome/fontawesome-free-solid";
 
 import Zach from "./resources/images/zach.png";
 import ZachNYC from "./resources/images/zach-nyc.jpg";
+import SF from "./resources/images/sf.jpg";
 import "./resources/styles/site.less";
 
 export class DiemerCodes extends Component {
@@ -122,7 +123,7 @@ const BodyContainer = styled.div`
         right: 0;
         bottom: 0;
         left: 0;
-        background: url("../images/sf.jpg") 100% center;
+        background: url(${SF}) 100% center;
         background-size: cover;
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -135,9 +136,10 @@ const BodyContainer = styled.div`
 const Header = styled.div`
     display: flex;
     flex-direction: column;
-    flex: 1 0 30vh;
+    flex: 1;
     align-items: center;
     justify-content: center;
+    margin-top: 50px;
 
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
@@ -166,12 +168,15 @@ const blinkCaret = keyframes`
 `;
 
 const HeaderName = styled.div`
+    margin: 0 auto;
     width: 14ch;
-    flex: 1 0 0;
+    flex: 1 0 2ch;
     white-space: nowrap;
+    overflow: hidden;
     border-right: 0.1rem solid ${Styles.Color.Yellow};
     animation: ${typing} 2s steps(14, end),
         ${blinkCaret} 0.5s step-end infinite alternate;
+    font-size: 5vh;
 `;
 
 const HeaderDescription = styled.div`
