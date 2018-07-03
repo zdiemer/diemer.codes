@@ -20,3 +20,5 @@ yarn-error.log*
 
 .vscode
 keys/
+
+public/site.css*

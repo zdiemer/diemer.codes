@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import {
     faTwitterSquare,
@@ -16,22 +16,25 @@ import { faHeart } from "@fortawesome/fontawesome-free-solid";
 
 import Zach from "./resources/images/zach.png";
 import ZachNYC from "./resources/images/zach-nyc.jpg";
-import "./resources/styles/site.css";
+import "./resources/styles/site.less";
 
 export class DiemerCodes extends Component {
     render() {
         return (
-            <div className="site-content">
-                <div className="main-body">
-                    <div className="basic-information">
-                        <img className="zach-img" src={Zach} alt="Zach Diemer" />
-
-                        <div className="name">Zachary Diemer</div>
-
-                        <div className="main-description">
+            <SiteContainer>
+                <BodyContainer>
+                    <Header>
+                        <HeaderImage
+                            src={Zach}
+                            alt="Zach Diemer"
+                        />
+                        <HeaderName>
+                            Zachary Diemer
+                        </HeaderName>
+                        <HeaderDescription>
                             Software Engineer. Tinkerer. Lifelong student.
-            </div>
-                    </div>
+                        </HeaderDescription>
+                    </Header>
 
                     <div className="separator" />
 
@@ -63,7 +66,7 @@ export class DiemerCodes extends Component {
                         Hand crafted with <FontAwesomeIcon icon={faHeart} /> by Zachary Diemer
           </div>
 
-                </div>
+                </BodyContainer>
                 <div className="social">
                     <a className="icon" target="_blank" rel="noopener noreferrer" href="https://twitter.com/zach_diemer">
                         <FontAwesomeIcon icon={faTwitterSquare} />
@@ -81,33 +84,103 @@ export class DiemerCodes extends Component {
                         <FontAwesomeIcon icon={faLinkedin} />
                     </a>
                 </div>
-            </div >
+            </SiteContainer>
         );
     }
 }
 
-const SiteContainer = styled.div`
+const Styles = {
+    Color: {
+        Black: "#202020",
+        White: "#E9E9E9",
+        Yellow: "#EAC67A",
+        Gray: "#595959",
+    },
+    Font: {
+        FontFamilyFiraCode: "'Fira Code', sans-serif",
+    },
+}
 
+const SiteContainer = styled.div`
+    display: flex;
+    width: 100%;
+    background: ${Styles.Color.Black};
+    color: ${Styles.Color.White};
+    font-family: ${Styles.Font.FontFamilyFiraCode};
 `;
 
 const BodyContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    width: 100%;
 
+    &::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: url("../images/sf.jpg") 100% center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        opacity: 0.5;
+        z-index: -1;
+    }
 `;
 
 const Header = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 30vh;
+    align-items: center;
+    justify-content: center;
 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 `;
 
 const HeaderImage = styled.img`
+    flex: 1 0 0;
+    width: 20rem;
+    border: 2px solid ${Styles.Color.White};
+    border-radius: 50%;
+`;
 
+const typing = keyframes`
+    from {
+        width: 0;
+    }
+`;
+
+const blinkCaret = keyframes`
+    50% {
+        border-color: transparent;
+    }
 `;
 
 const HeaderName = styled.div`
-
+    width: 14ch;
+    flex: 1 0 0;
+    white-space: nowrap;
+    border-right: 0.1rem solid ${Styles.Color.Yellow};
+    animation: ${typing} 2s steps(14, end),
+        ${blinkCaret} 0.5s step-end infinite alternate;
 `;
 
 const HeaderDescription = styled.div`
-
+    flex: 1 0 0;
+    margin-top: 1rem;
+    font-style: italic;
+    color: ${Styles.Color.Yellow};
+    border: 1px dashed ${Styles.Color.Gray};
+    padding: 0.5rem;
 `;
 
 const Divider = styled.div`
