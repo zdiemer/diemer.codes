@@ -6,15 +6,15 @@
     "license": "MIT",
     "main": "server.js",
     "dependencies": {
-        "@fortawesome/fontawesome": "^1.1.4",
-        "@fortawesome/fontawesome-free-brands": "^5.0.8",
-        "@fortawesome/fontawesome-free-solid": "^5.0.8",
-        "@fortawesome/react-fontawesome": "^0.0.17",
-        "express": "^4.16.2",
-        "react": "^15.6.1",
-        "react-dom": "^15.6.1",
-        "react-scripts": "1.0.13",
-        "styled-components": "^3.3.3"
+        "@fortawesome/fontawesome": "^1.1.8",
+        "@fortawesome/fontawesome-free-brands": "^5.0.13",
+        "@fortawesome/fontawesome-free-solid": "^5.0.13",
+        "@fortawesome/react-fontawesome": "^0.1.7",
+        "express": "^4.17.1",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "react-scripts": "3.2.0",
+        "styled-components": "^4.4.1"
     },
     "scripts": {
         "start": "npm rum build-css && npm run build && node server.js",
