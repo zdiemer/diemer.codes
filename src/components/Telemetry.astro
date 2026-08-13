@@ -9,38 +9,57 @@
 </style>
 
 <script>
-  function prng(seed: number) {
-    return function () {
-      seed |= 0;
-      seed = (seed + 0x6d2b79f5) | 0;
-      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
+  // Live scrolling load graph. A new sample lands every 900ms; the bright
+  // series' latest value is mirrored into the statusline's `load` readout so
+  // the whole chrome reads as one live system. Static single draw under
+  // prefers-reduced-motion; pauses in background tabs via the isConnected
+  // check (the interval dies with the canvas after a view transition).
+  const POINTS = 57;
+
+  function makeSeries(base: number, amp: number) {
+    const buf: number[] = [];
+    let v = base;
+    for (let i = 0; i < POINTS; i++) {
+      v = step(v, base, amp);
+      buf.push(v);
+    }
+    return { buf, base, amp };
+  }
+  function step(v: number, base: number, amp: number) {
+    v += (Math.random() - 0.5) * amp;
+    return Math.max(base - amp * 2.2, Math.min(base + amp * 2.6, v));
   }
 
-  const c = document.getElementById('cv-tele') as HTMLCanvasElement | null;
-  if (c) {
+  function start() {
+    const c = document.getElementById('cv-tele') as HTMLCanvasElement | null;
+    if (!c || c.dataset.live) return;
+    c.dataset.live = '1';
     const g = c.getContext('2d')!;
     const w = c.width;
     const h = c.height;
-    g.strokeStyle = 'rgba(242,169,59,0.14)';
-    g.lineWidth = 1;
-    for (let y = h - 30; y > 20; y -= 52) {
-      g.beginPath();
-      g.moveTo(24, y);
-      g.lineTo(w - 24, y);
-      g.stroke();
-    }
-    function series(seed: number, amp: number, base: number, color: string, lw: number, glow: boolean) {
-      const rr = prng(seed);
-      const pts: [number, number][] = [];
-      let v = base;
-      for (let x = 0; x <= 56; x++) {
-        v += (rr() - 0.5) * amp;
-        v = Math.max(base - amp * 2.2, Math.min(base + amp * 2.6, v));
-        pts.push([24 + (x / 56) * (w - 48), v]);
+
+    const dim = makeSeries(h * 0.62, 26);
+    const hot = makeSeries(h * 0.42, 30);
+
+    function draw() {
+      g.clearRect(0, 0, w, h);
+      g.strokeStyle = 'rgba(242,169,59,0.14)';
+      g.lineWidth = 1;
+      for (let y = h - 30; y > 20; y -= 52) {
+        g.beginPath();
+        g.moveTo(24, y);
+        g.lineTo(w - 24, y);
+        g.stroke();
       }
+      plot(dim.buf, 'rgba(147,112,47,0.9)', 1.5, false);
+      plot(hot.buf, '#F2A93B', 2, true);
+      const loadNow = loadValue();
+      g.fillStyle = 'rgba(242,169,59,0.75)';
+      g.font = '16px "Martian Mono", monospace';
+      g.fillText(loadNow, w - 78, hot.buf[hot.buf.length - 1] - 14);
+    }
+
+    function plot(buf: number[], color: string, lw: number, glow: boolean) {
       g.save();
       if (glow) {
         g.shadowColor = 'rgba(242,169,59,0.55)';
@@ -49,23 +68,48 @@
       g.strokeStyle = color;
       g.lineWidth = lw;
       g.beginPath();
-      pts.forEach((p, i) => {
-        if (i === 0) g.moveTo(p[0], p[1]);
+      buf.forEach((v, i) => {
+        const x = 24 + (i / (POINTS - 1)) * (w - 48);
+        if (i === 0) g.moveTo(x, v);
         else {
-          g.lineTo(p[0], pts[i - 1][1]);
-          g.lineTo(p[0], p[1]);
+          g.lineTo(x, buf[i - 1]);
+          g.lineTo(x, v);
         }
       });
       g.stroke();
       g.restore();
-      const last = pts[pts.length - 1];
+      const lastX = 24 + (w - 48);
       g.fillStyle = color;
-      g.fillRect(last[0] - 3, last[1] - 3, 6, 6);
+      g.fillRect(lastX - 3, buf[buf.length - 1] - 3, 6, 6);
     }
-    series(41, 26, h * 0.62, 'rgba(147,112,47,0.9)', 1.5, false);
-    series(97, 30, h * 0.42, '#F2A93B', 2, true);
-    g.fillStyle = 'rgba(242,169,59,0.75)';
-    g.font = '16px "Martian Mono", monospace';
-    g.fillText('0.42', w - 78, h * 0.42 - 14);
+
+    function loadValue() {
+      // Map the hot series' vertical position onto a plausible 5m load.
+      const v = hot.buf[hot.buf.length - 1];
+      const norm = 1 - (v - (hot.base - hot.amp * 2.2)) / (hot.amp * 4.8);
+      return (0.12 + norm * 0.9).toFixed(2);
+    }
+
+    draw();
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const timer = setInterval(() => {
+      if (!c.isConnected) {
+        clearInterval(timer);
+        return;
+      }
+      if (document.hidden) return;
+      dim.buf.shift();
+      dim.buf.push(step(dim.buf[dim.buf.length - 1], dim.base, dim.amp));
+      hot.buf.shift();
+      hot.buf.push(step(hot.buf[hot.buf.length - 1], hot.base, hot.amp));
+      draw();
+      const readout = document.querySelector('[data-status="load"]');
+      if (readout) readout.textContent = loadValue();
+    }, 900);
   }
+
+  start();
+  document.addEventListener('astro:page-load', start);
 </script>

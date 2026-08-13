@@ -39,7 +39,9 @@ const jsonLd = {
 <Base jsonLd={jsonLd}>
   <section class="hero">
     <div class="prompt">
-      <b>zach@diemer.codes</b>:~$ cat motd<span class="cursor" aria-hidden="true"></span>
+      <b>zach@diemer.codes</b>:~$ <span id="typed" data-text="cat motd">cat motd</span><span
+        class="cursor"
+        aria-hidden="true"></span>
     </div>
     <h1>Software engineer.<br />Recreational sysadmin.</h1>
     <p class="lede">
@@ -58,7 +60,7 @@ const jsonLd = {
       <tbody>
         {
           posts.map((post) => (
-            <tr>
+            <tr data-filter={`${post.data.title} ${post.id} ${post.data.tags.join(' ')}`}>
               <td class="perm">-rw-r--r--</td>
               <td class="date">{fmt(post.data.date)}</td>
               <td class="name">
@@ -80,12 +82,15 @@ const jsonLd = {
     <div class="panel">
       <div class="panel-bar"><span><b>mugshot.png</b></span><span>dithered 1-bit</span></div>
       <div class="portrait">
-        <img
-          src="/images/portrait-1bit.png"
-          alt="Bayer-dithered 1-bit portrait of Zach Diemer"
-          width="112"
-          height="140"
-        />
+        <div class="scanwrap">
+          <img
+            src="/images/portrait-1bit.png"
+            alt="Bayer-dithered 1-bit portrait of Zach Diemer"
+            width="112"
+            height="140"
+          />
+          <span class="scanbeam" aria-hidden="true"></span>
+        </div>
       </div>
     </div>
   </section>
@@ -135,12 +140,10 @@ const jsonLd = {
 
   .ls {
     padding: 4px 26px 8px;
-    overflow-x: auto;
   }
   .ls table {
     border-collapse: collapse;
     width: 100%;
-    min-width: 640px;
   }
   .ls td {
     padding: 8px 18px 8px 0;
@@ -162,7 +165,8 @@ const jsonLd = {
     border-bottom: 1px dotted var(--am-dim);
     padding-bottom: 1px;
   }
-  .name a:hover {
+  .name a:hover,
+  .name a:active {
     color: var(--am-hot);
     border-bottom-color: var(--am);
     text-shadow: 0 0 12px rgba(242, 169, 59, 0.4);
@@ -211,9 +215,101 @@ const jsonLd = {
     justify-content: center;
     padding: 10px 0;
   }
+  .scanwrap {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+  }
   .portrait img {
     height: 170px;
     width: auto;
     image-rendering: pixelated;
   }
+  /* CRT rescan: a bright beam sweeps the portrait on hover / tap. */
+  .scanbeam {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -30%;
+    height: 26%;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(255, 223, 168, 0.28) 45%,
+      rgba(255, 223, 168, 0.08) 55%,
+      transparent
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+  .scanwrap:hover .scanbeam,
+  .scanwrap:active .scanbeam {
+    opacity: 1;
+    animation: rescan 1.1s linear infinite;
+  }
+  @keyframes rescan {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(520%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scanwrap:hover .scanbeam,
+    .scanwrap:active .scanbeam {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 40px 16px 8px;
+    }
+    .divider {
+      padding: 24px 16px 8px;
+    }
+    .ls {
+      padding: 4px 16px 8px;
+    }
+    .perm {
+      display: none;
+    }
+    .panels {
+      padding: 20px 16px;
+      gap: 14px;
+    }
+  }
 </style>
+
+<script>
+  // Type the hero command once per session; instant for return visits,
+  // reduced-motion users, and crawlers (the text is server-rendered).
+  function typeMotd() {
+    const el = document.getElementById('typed');
+    if (!el || el.dataset.done) return;
+    el.dataset.done = '1';
+    const text = el.dataset.text || '';
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      sessionStorage.getItem('motd-typed')
+    ) {
+      el.textContent = text;
+      return;
+    }
+    sessionStorage.setItem('motd-typed', '1');
+    el.textContent = '';
+    let i = 0;
+    const timer = setInterval(() => {
+      if (!el.isConnected || i >= text.length) {
+        clearInterval(timer);
+        if (el.isConnected) el.textContent = text;
+        return;
+      }
+      el.textContent += text[i++];
+    }, 55);
+  }
+  typeMotd();
+  document.addEventListener('astro:page-load', typeMotd);
+</script>

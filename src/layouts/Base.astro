@@ -1,5 +1,7 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Statusline from '../components/Statusline.astro';
+import CommandBar from '../components/CommandBar.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -61,6 +63,7 @@ const ogImage = new URL('/og.png', Astro.site);
     <meta name="twitter:image" content={ogImage} />
 
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <ClientRouter />
   </head>
   <body>
     <div class="wrap">
@@ -79,6 +82,7 @@ const ogImage = new URL('/og.png', Astro.site);
         </span>
       </footer>
     </div>
+    <CommandBar />
   </body>
 </html>
 
@@ -86,11 +90,16 @@ const ogImage = new URL('/og.png', Astro.site);
   .foot {
     display: flex;
     justify-content: space-between;
-    gap: 14px;
+    gap: 8px 14px;
     padding: 14px 26px 18px;
     border-top: 1px solid var(--am-line);
     font-size: 10.5px;
     flex-wrap: wrap;
+  }
+  @media (max-width: 620px) {
+    .foot {
+      padding: 14px 16px 18px;
+    }
   }
   .foot b {
     color: var(--am);

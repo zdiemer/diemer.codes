@@ -36,7 +36,7 @@ const jsonLd = {
       </div>
       {
         projects.map((p) => (
-          <div class="row" role="row">
+          <div class="row" role="row" data-filter={`${p.data.id} ${p.data.description}`}>
             <span class="unit" role="cell">
               {p.data.url ? (
                 <a href={p.data.url}>{p.data.id}.service</a>
@@ -160,8 +160,12 @@ const jsonLd = {
   }
 
   @media (max-width: 720px) {
+    .proj {
+      padding: 40px 16px 30px;
+    }
     .units {
-      grid-template-columns: max-content max-content minmax(220px, 1fr);
+      grid-template-columns: max-content max-content minmax(180px, 1fr);
+      column-gap: 14px;
     }
     .row {
       grid-template-columns: subgrid;
@@ -171,6 +175,9 @@ const jsonLd = {
     .active,
     .row.head span:nth-child(3) {
       display: none;
+    }
+    .desc {
+      overflow-wrap: anywhere;
     }
   }
 </style>

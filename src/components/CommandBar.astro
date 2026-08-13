@@ -1,0 +1,206 @@
+<div class="cmdbar" id="cmdbar" hidden>
+  <span class="cmd-prefix" id="cmd-prefix">:</span>
+  <input
+    class="cmd-input"
+    id="cmd-input"
+    type="text"
+    autocomplete="off"
+    autocapitalize="off"
+    spellcheck="false"
+    aria-label="Command"
+  />
+  <span class="cmd-msg" id="cmd-msg" aria-live="polite"></span>
+</div>
+
+<style>
+  .cmdbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    padding: 9px 14px;
+    background: #0a0805;
+    border-top: 1px solid var(--am-line);
+    font-family: 'Martian Mono', monospace;
+    font-size: 12px;
+  }
+  .cmd-prefix {
+    color: var(--am-hot);
+  }
+  .cmd-input {
+    flex: 0 1 34ch;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--am);
+    font: inherit;
+    caret-color: var(--am);
+    padding: 0;
+  }
+  .cmd-msg {
+    color: var(--am-dim);
+    font-size: 10.5px;
+    margin-left: auto;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Keyboard-driven; pointless on touch screens. */
+  @media (hover: none) and (pointer: coarse) {
+    .cmdbar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Vim-flavored command line. ':' opens command mode, '/' opens filter mode
+  // (live-filters any [data-filter] rows on the page), Esc closes. gg / G /
+  // j / k scroll. One document-level listener survives view transitions; every
+  // element lookup is fresh because the DOM is swapped on navigation.
+  const $ = (id: string) => document.getElementById(id);
+
+  const COMMANDS: Record<string, string> = {
+    q: '/',
+    'q!': '/',
+    home: '/',
+    motd: '/',
+    'e projects': '/projects',
+    projects: '/projects',
+    proj: '/projects',
+    'e writing': '/',
+    writing: '/',
+    w: '/rss.xml',
+    rss: '/rss.xml',
+    subscribe: '/rss.xml',
+    gh: 'https://github.com/zdiemer',
+    github: 'https://github.com/zdiemer',
+    mail: 'mailto:zach@diemer.codes',
+  };
+  const HELP = ':q home · :e projects · :w rss · :gh github · :mail · /text filter';
+
+  let mode: 'cmd' | 'search' | null = null;
+  let lastKey = '';
+  let lastKeyAt = 0;
+
+  function rows(): HTMLElement[] {
+    return Array.from(document.querySelectorAll<HTMLElement>('[data-filter]'));
+  }
+
+  function open(next: 'cmd' | 'search') {
+    const bar = $('cmdbar'),
+      input = $('cmd-input') as HTMLInputElement | null,
+      prefix = $('cmd-prefix'),
+      msg = $('cmd-msg');
+    if (!bar || !input || !prefix || !msg) return;
+    mode = next;
+    bar.hidden = false;
+    prefix.textContent = next === 'cmd' ? ':' : '/';
+    msg.textContent = next === 'cmd' ? HELP : `${rows().length} entries`;
+    input.value = '';
+    input.focus();
+  }
+
+  function close(clearFilter: boolean) {
+    const bar = $('cmdbar'),
+      input = $('cmd-input') as HTMLInputElement | null;
+    mode = null;
+    if (input) input.blur();
+    if (bar) bar.hidden = true;
+    if (clearFilter) applyFilter('');
+  }
+
+  function applyFilter(text: string) {
+    const q = text.trim().toLowerCase();
+    let shown = 0;
+    for (const row of rows()) {
+      const hit = !q || (row.dataset.filter || '').toLowerCase().includes(q);
+      row.style.display = hit ? '' : 'none';
+      if (hit) shown++;
+    }
+    return shown;
+  }
+
+  function runCommand(raw: string) {
+    const cmd = raw.trim().toLowerCase();
+    const msg = $('cmd-msg');
+    if (!cmd) return close(false);
+    if (cmd === 'help' || cmd === 'h') {
+      if (msg) msg.textContent = HELP;
+      return;
+    }
+    const dest = COMMANDS[cmd];
+    if (dest) {
+      close(false);
+      window.location.href = dest;
+    } else if (msg) {
+      msg.textContent = `E492: not an editor command: ${cmd.slice(0, 24)}`;
+    }
+  }
+
+  if (!(window as any).__cmdbarInit) {
+    (window as any).__cmdbarInit = true;
+
+    document.addEventListener('keydown', (e) => {
+      const target = e.target as HTMLElement;
+      const typing = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement;
+
+      if (mode && typing) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          close(true);
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (mode === 'cmd') runCommand(($('cmd-input') as HTMLInputElement).value);
+          else close(false);
+        }
+        return;
+      }
+      if (typing) return;
+
+      if (e.key === ':' || (e.key === ';' && e.shiftKey)) {
+        e.preventDefault();
+        open('cmd');
+      } else if (e.key === '/') {
+        e.preventDefault();
+        open('search');
+      } else if (e.key === 'Escape') {
+        close(true);
+      } else if (e.key === 'j') {
+        window.scrollBy({ top: 90, behavior: 'smooth' });
+      } else if (e.key === 'k') {
+        window.scrollBy({ top: -90, behavior: 'smooth' });
+      } else if (e.key === 'G' && e.shiftKey) {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      } else if (e.key === 'g') {
+        const now = Date.now();
+        if (lastKey === 'g' && now - lastKeyAt < 450) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          lastKey = '';
+          return;
+        }
+      }
+      lastKey = e.key;
+      lastKeyAt = Date.now();
+    });
+
+    document.addEventListener('input', (e) => {
+      if (mode !== 'search') return;
+      const input = e.target as HTMLInputElement;
+      if (input.id !== 'cmd-input') return;
+      const shown = applyFilter(input.value);
+      const msg = $('cmd-msg');
+      if (msg) msg.textContent = `${shown}/${rows().length} match`;
+    });
+
+    // A view transition swaps the bar out of existence mid-session.
+    document.addEventListener('astro:after-swap', () => {
+      mode = null;
+    });
+  }
+</script>

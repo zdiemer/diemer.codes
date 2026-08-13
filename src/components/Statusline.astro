@@ -1,6 +1,7 @@
 ---
-// Build-time defaults; a /status.json endpoint on the cluster can override
-// them client-side after load (progressive enhancement, silent on 404).
+// Build-time defaults; the clock ticks client-side, and a /status.json
+// endpoint on the cluster can override nodes/uptime/load after load
+// (progressive enhancement, silent on 404).
 const now = new Date();
 const stamp = now.toISOString().slice(0, 16).replace('T', ' ');
 const here = Astro.url.pathname;
@@ -16,7 +17,7 @@ const here = Astro.url.pathname;
   </div>
   <div class="grp">
     <span>nodes <b data-status="nodes">3/3</b> <span class="dot">&#9679;</span></span>
-    <span>up <b data-status="uptime">148d</b></span>
+    <span class="wide">up <b data-status="uptime">148d</b></span>
     <span>load <b data-status="load">0.42</b></span>
     <span><b data-status="stamp">{stamp}</b></span>
   </div>
@@ -26,7 +27,7 @@ const here = Astro.url.pathname;
   .status {
     display: flex;
     justify-content: space-between;
-    gap: 14px;
+    gap: 10px 14px;
     padding: 10px 26px;
     font-size: 10.5px;
     letter-spacing: 0.04em;
@@ -38,6 +39,7 @@ const here = Astro.url.pathname;
   .status b {
     color: var(--am);
     font-weight: 500;
+    font-variant-numeric: tabular-nums;
   }
   .status a {
     color: inherit;
@@ -47,6 +49,7 @@ const here = Astro.url.pathname;
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
+    align-items: baseline;
   }
   .nav {
     display: flex;
@@ -66,17 +69,48 @@ const here = Astro.url.pathname;
   .dot {
     color: var(--am);
   }
+  @media (max-width: 620px) {
+    .status {
+      padding: 10px 16px;
+    }
+    .wide {
+      display: none;
+    }
+  }
 </style>
 
 <script>
-  fetch('/status.json')
-    .then((r) => (r.ok ? r.json() : null))
-    .then((s) => {
-      if (!s) return;
-      for (const [key, value] of Object.entries(s)) {
-        const el = document.querySelector(`[data-status="${key}"]`);
-        if (el && typeof value === 'string') el.textContent = value;
-      }
-    })
-    .catch(() => {});
+  function tickClock() {
+    const el = document.querySelector('[data-status="stamp"]');
+    if (!el) return;
+    const d = new Date();
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const hms = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    el.textContent = window.matchMedia('(max-width: 620px)').matches
+      ? hms
+      : `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${hms}`;
+  }
+
+  if (!(window as any).__statusInit) {
+    (window as any).__statusInit = true;
+    setInterval(tickClock, 1000);
+  }
+  tickClock();
+  document.addEventListener('astro:page-load', tickClock);
+
+  function liveStatus() {
+    fetch('/status.json')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((s) => {
+        if (!s) return;
+        for (const [key, value] of Object.entries(s)) {
+          if (key === 'stamp') continue; // the clock owns this now
+          const el = document.querySelector(`[data-status="${key}"]`);
+          if (el && typeof value === 'string') el.textContent = value;
+        }
+      })
+      .catch(() => {});
+  }
+  liveStatus();
+  document.addEventListener('astro:page-load', liveStatus);
 </script>
