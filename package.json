@@ -1,39 +1,17 @@
 {
-    "name": "diemer-codes",
-    "version": "0.0.1",
-    "description": "Webserver behind diemer.codes",
-    "author": "Zachary Diemer <zach@diemer.codes>",
-    "license": "MIT",
-    "main": "server.js",
-    "dependencies": {
-        "@fortawesome/fontawesome": "^1.1.8",
-        "@fortawesome/fontawesome-free-brands": "^5.0.13",
-        "@fortawesome/fontawesome-free-solid": "^5.0.13",
-        "@fortawesome/fontawesome-svg-core": "^1.2.25",
-        "@fortawesome/react-fontawesome": "^0.1.7",
-        "express": "^4.17.1",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0",
-        "react-scripts": "^3.2.0",
-        "styled-components": "^4.4.1"
-    },
-    "scripts": {
-        "start": "npm run build-css && npm run build && node server.js",
-        "build": "react-scripts build",
-        "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject",
-        "build-css": "lessc src/resources/styles/site.less public/site.css --source-map=public/site.css.map"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    }
+  "name": "diemer-codes",
+  "version": "2.0.0",
+  "description": "diemer.codes — amber phosphor edition",
+  "author": "Zachary Diemer <zach@diemer.codes>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.12",
+    "astro": "^5.13.2"
+  }
 }
