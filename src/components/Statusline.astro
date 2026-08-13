@@ -3,12 +3,16 @@
 // them client-side after load (progressive enhancement, silent on 404).
 const now = new Date();
 const stamp = now.toISOString().slice(0, 16).replace('T', ' ');
+const here = Astro.url.pathname;
 ---
 
 <div class="status">
   <div class="grp">
     <span><b><a href="/">diemer.codes</a></b></span>
-    <span>tty1</span>
+    <nav class="nav" aria-label="Site">
+      <a href="/" class={here === '/' ? 'on' : ''}>~/writing</a>
+      <a href="/projects" class={here.startsWith('/projects') ? 'on' : ''}>~/projects</a>
+    </nav>
   </div>
   <div class="grp">
     <span>nodes <b data-status="nodes">3/3</b> <span class="dot">&#9679;</span></span>
@@ -43,6 +47,21 @@ const stamp = now.toISOString().slice(0, 16).replace('T', ' ');
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
+  }
+  .nav {
+    display: flex;
+    gap: 14px;
+  }
+  .nav a {
+    color: var(--am-dim);
+    padding-bottom: 1px;
+  }
+  .nav a:hover {
+    color: var(--am-hot);
+  }
+  .nav a.on {
+    color: var(--am);
+    border-bottom: 1px solid var(--am-dim);
   }
   .dot {
     color: var(--am);

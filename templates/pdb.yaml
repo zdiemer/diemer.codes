@@ -1,0 +1,18 @@
+{{/*
+Bounds voluntary disruption (drains, not crashes) so the two replicas can never
+be evicted together. Gated on replicaCount > 1: minAvailable: 1 against a
+single replica makes a drain block indefinitely rather than fail.
+*/}}
+{{- if gt (int .Values.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "diemer-codes.fullname" . }}
+  labels:
+    {{- include "diemer-codes.labels" . | nindent 4 }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      {{- include "diemer-codes.selectorLabels" . | nindent 6 }}
+{{- end }}

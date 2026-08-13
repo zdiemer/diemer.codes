@@ -1,0 +1,65 @@
+[
+  {
+    "id": "selfhosted",
+    "active": "active",
+    "sub": "running",
+    "description": "Helm charts and scripts for everything on the home k3s cluster — the lab itself",
+    "url": "https://github.com/zdiemer/selfhosted"
+  },
+  {
+    "id": "money",
+    "active": "active",
+    "sub": "running",
+    "description": "Self-hosted finance and financial-independence dashboard",
+    "private": true
+  },
+  {
+    "id": "sms-relay",
+    "active": "active",
+    "sub": "running",
+    "description": "Durable send/receive SMS API in front of an Android handset — a self-hosted Twilio",
+    "url": "https://github.com/zdiemer/sms-relay"
+  },
+  {
+    "id": "gamedex",
+    "active": "active",
+    "sub": "running",
+    "description": "Searchable browser for a Dropbox-hosted games spreadsheet — FastAPI + vanilla JS",
+    "url": "https://github.com/zdiemer/gamedex"
+  },
+  {
+    "id": "smitele-bot",
+    "active": "active",
+    "sub": "running",
+    "description": "Discord bot for the Smite-le game the SPL plays between matches",
+    "url": "https://github.com/zdiemer/smitele-bot"
+  },
+  {
+    "id": "talaria",
+    "active": "active",
+    "sub": "running",
+    "description": "Auction watcher with deal alerts",
+    "private": true
+  },
+  {
+    "id": "zodemu",
+    "active": "activating",
+    "sub": "start",
+    "description": "Tapwave Zodiac emulator — LLE CPU, HLE GPU and OS, in Rust",
+    "private": true
+  },
+  {
+    "id": "magiceyes",
+    "active": "active",
+    "sub": "exited",
+    "description": "Cross-platform GP2X / Wiz / Caanoo emulator wrapped around Unicorn",
+    "url": "https://github.com/zdiemer/magiceyes"
+  },
+  {
+    "id": "k3s-cluster",
+    "active": "active",
+    "sub": "exited",
+    "description": "Bootstrap scripts for joining new hardware to the cluster",
+    "url": "https://github.com/zdiemer/k3s-cluster"
+  }
+]

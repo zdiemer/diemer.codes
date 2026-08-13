@@ -1,0 +1,21 @@
+# The chart shares the repo root with the app (normal shape for this cluster).
+# Helm only needs Chart.yaml, values*.yaml and templates/ — keep the entire
+# site source, content and toolchain out of chart packaging and linting.
+node_modules/
+dist/
+.astro/
+content/
+public/
+src/
+*.json
+*.mjs
+*.md
+*.sh
+*.conf
+Dockerfile
+.dockerignore
+.gitignore
+.gitmodules
+.git/
+LICENSE
+values.local.yaml

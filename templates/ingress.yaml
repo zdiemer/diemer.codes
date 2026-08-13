@@ -1,0 +1,54 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "diemer-codes.fullname" . }}
+  labels:
+    {{- include "diemer-codes.labels" . | nindent 4 }}
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    {{- if .Values.auth.forwardAuth.enabled }}
+    # Gate the whole host behind Authelia (templates/middleware-forwardauth.yaml).
+    # This is also the chart's answer to infra/ingress-policy rule 4: the site
+    # is deliberately NOT public yet. At launch, this flips off together with
+    # populating cloudflareHosts, and the annotation below replaces it:
+    #   ingress.zachd/public-unauthenticated: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Release.Namespace }}-{{ include "diemer-codes.fullname" . }}-forwardauth@kubernetescrd
+    {{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "diemer-codes.fullname" . }}
+                port:
+                  number: {{ .Values.service.port }}
+    {{- /*
+      Public hostnames over the shared Cloudflare tunnel (infra/cloudflared).
+      Empty until launch — this list is the publish switch. TLS for these
+      terminates at Cloudflare's edge, so they stay out of the cert list below.
+    */}}
+    {{- range .Values.ingress.cloudflareHosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "diemer-codes.fullname" $ }}
+                port:
+                  number: {{ $.Values.service.port }}
+    {{- end }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+  {{- end }}
+{{- end }}

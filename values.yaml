@@ -1,0 +1,69 @@
+# diemer.codes — the live personal site, normal chart shape (chart + source in
+# this repo, submodule'd into selfhosted at web/diemer-codes).
+#
+# To ship a change: commit here on `main`, bump image.tag + Chart version/
+# appVersion together, ./build.sh && ./upgrade.sh, then in selfhosted move the
+# web/diemer-codes submodule pin and commit what shipped.
+
+image:
+  # Built + pushed to GHCR by build.sh. PRIVATE package, deliberately — the site
+  # is not public yet, and a public image would hand out the rendered bytes of
+  # the private posts repo. Pulls authenticate via the imageCredentials secret
+  # below instead of the anonymous-public convention old-diemer-codes uses.
+  repository: ghcr.io/zdiemer/diemer-codes
+  tag: "2.0.0"
+  # IfNotPresent — so NEVER reuse a tag; a rebuild over an existing tag will not
+  # re-pull and the cluster keeps serving the old bytes.
+  pullPolicy: IfNotPresent
+
+# Private GHCR image: set imageCredentials.pat in values.local.yaml (gitignored)
+# and the chart creates the docker-registry secret + wires it into the pod —
+# same pattern as finance/money. The PAT only needs read:packages.
+imageCredentials:
+  registry: ghcr.io
+  username: zdiemer
+  pat: "" # set in values.local.yaml
+
+# Extra pre-existing pull secrets, usually empty.
+imagePullSecrets: []
+
+# Static files baked into the image, no state — scales freely, rolls with zero
+# unavailable. Two replicas make a node drain invisible.
+replicaCount: 2
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: traefik
+  # DuckDNS only, on purpose: the site is not public yet. The public hostname
+  # (diemer.codes via the shared Cloudflare tunnel) joins cloudflareHosts when
+  # it launches — that list is the publish switch.
+  host: diemer.zachd.duckdns.org
+  cloudflareHosts: []
+  tls:
+    enabled: true
+    # Sub-subdomain rides the wildcard SAN (DuckDNS can only write TXT at the
+    # account top level). Mirrors every other service here.
+
+auth:
+  # Gate the whole host behind Authelia forward-auth (infra/ingress-policy
+  # rule 4 wants every Ingress to answer "is this host authenticated?" — this
+  # is the answer). Flip to false at public launch alongside cloudflareHosts,
+  # replacing it with the explicit public-unauthenticated annotation.
+  forwardAuth:
+    enabled: true
+    autheliaService: authelia
+    autheliaNamespace: auth
+    autheliaPort: 9091
+    autheliaPath: /api/authz/forward-auth
+
+# nginx serving ~1 MB of static files.
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    memory: 128Mi

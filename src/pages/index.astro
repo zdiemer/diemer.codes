@@ -12,9 +12,31 @@ const fmt = (d: Date) =>
     .toLocaleDateString('en-US', { month: 'short', day: '2-digit', timeZone: 'UTC' })
     .toLowerCase()
     .replace(',', '');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'diemer.codes',
+      url: 'https://diemer.codes',
+      description: 'Software engineer. Recreational sysadmin.',
+      author: { '@id': 'https://diemer.codes/#zach' },
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://diemer.codes/#zach',
+      name: 'Zach Diemer',
+      url: 'https://diemer.codes',
+      email: 'zach@diemer.codes',
+      jobTitle: 'Software Engineer',
+      sameAs: ['https://github.com/zdiemer', 'https://www.linkedin.com/in/zach-diemer'],
+    },
+  ],
+};
 ---
 
-<Base>
+<Base jsonLd={jsonLd}>
   <section class="hero">
     <div class="prompt">
       <b>zach@diemer.codes</b>:~$ cat motd<span class="cursor" aria-hidden="true"></span>

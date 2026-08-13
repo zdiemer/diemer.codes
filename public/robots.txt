@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://diemer.codes/sitemap-index.xml
