@@ -1,0 +1,63 @@
+---
+// Build-time defaults; a /status.json endpoint on the cluster can override
+// them client-side after load (progressive enhancement, silent on 404).
+const now = new Date();
+const stamp = now.toISOString().slice(0, 16).replace('T', ' ');
+---
+
+<div class="status">
+  <div class="grp">
+    <span><b><a href="/">diemer.codes</a></b></span>
+    <span>tty1</span>
+  </div>
+  <div class="grp">
+    <span>nodes <b data-status="nodes">3/3</b> <span class="dot">&#9679;</span></span>
+    <span>up <b data-status="uptime">148d</b></span>
+    <span>load <b data-status="load">0.42</b></span>
+    <span><b data-status="stamp">{stamp}</b></span>
+  </div>
+</div>
+
+<style>
+  .status {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 26px;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--am-dim);
+    border-bottom: 1px solid var(--am-line);
+    background: rgba(0, 0, 0, 0.25);
+    flex-wrap: wrap;
+  }
+  .status b {
+    color: var(--am);
+    font-weight: 500;
+  }
+  .status a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .grp {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .dot {
+    color: var(--am);
+  }
+</style>
+
+<script>
+  fetch('/status.json')
+    .then((r) => (r.ok ? r.json() : null))
+    .then((s) => {
+      if (!s) return;
+      for (const [key, value] of Object.entries(s)) {
+        const el = document.querySelector(`[data-status="${key}"]`);
+        if (el && typeof value === 'string') el.textContent = value;
+      }
+    })
+    .catch(() => {});
+</script>

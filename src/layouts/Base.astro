@@ -1,0 +1,65 @@
+---
+import Statusline from '../components/Statusline.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'diemer.codes', description = 'Software engineer. Recreational sysadmin.' } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#14100a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="diemer.codes" href="/rss.xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <Statusline />
+      <slot />
+      <footer class="foot">
+        <span class="dim"
+          ><b>:q</b> <a href="/">home</a>&ensp;<b>:w</b> <a href="/rss.xml">subscribe</a></span
+        >
+        <span class="dim">
+          <a href="/rss.xml">rss.xml</a> &middot;
+          <a href="https://github.com/zdiemer">github/zdiemer</a> &middot;
+          <a href="mailto:zach@diemer.codes">mail</a>
+        </span>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 26px 18px;
+    border-top: 1px solid var(--am-line);
+    font-size: 10.5px;
+    flex-wrap: wrap;
+  }
+  .foot b {
+    color: var(--am);
+    font-weight: 500;
+  }
+  .foot a {
+    color: var(--am);
+    text-decoration: none;
+  }
+  .foot a:hover {
+    color: var(--am-hot);
+  }
+</style>

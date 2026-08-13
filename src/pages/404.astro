@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="404 · diemer.codes">
+  <section class="nf">
+    <div class="prompt">
+      <b>zach@diemer.codes</b>:~$ cat {'<'}requested-page{'>'}
+    </div>
+    <h1>cat: no such file or directory</h1>
+    <p class="dim">exit code 1 &middot; try <a href="/">cd ~</a></p>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding: 80px 26px 120px;
+  }
+  .prompt {
+    font-size: 12px;
+    color: var(--am-dim);
+    margin-bottom: 14px;
+  }
+  .prompt b {
+    color: var(--am);
+    font-weight: 500;
+  }
+  h1 {
+    font-size: clamp(22px, 3.4vw, 34px);
+    margin: 0 0 14px;
+  }
+  .nf a {
+    color: var(--am);
+  }
+</style>
