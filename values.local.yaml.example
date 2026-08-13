@@ -1,0 +1,20 @@
+# Copy to values.local.yaml (gitignored) and fill in.
+#
+# The image lives in a PRIVATE GHCR package, because the site builds posts in
+# from a private submodule. So unlike old-diemer-codes, which pulls anonymously,
+# every node needs a credential to pull at all — without this the pods sit in
+# ImagePullBackOff and the chart looks healthy right up until a reschedule.
+#
+#   Create at https://github.com/settings/tokens (classic).
+#   read:packages is the ONLY scope required. Do not grant write:packages here —
+#   pushing is done from claude-workspace with its own token, and this one is
+#   handed to every node in the cluster.
+#
+# The live value can be read back out of the running secret:
+#
+#   kubectl get secret diemer-codes-ghcr -n web \
+#     -o jsonpath='{.data.\.dockerconfigjson}' | base64 -d
+#
+imageCredentials:
+  username: zdiemer
+  pat: "ghp_000000000000000000000000000000000000"
