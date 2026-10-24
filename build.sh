@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
-# Build the diemer.codes image and push it to GHCR. The package stays PRIVATE
-# (the site is not public yet), so unlike old-diemer-codes there is no
-# "flip the package to Public" step — the chart pulls with the imageCredentials
-# secret instead. Re-run after content or site changes, bumping image.tag +
-# Chart version/appVersion first, then run upgrade.sh.
-#
-# Requires: docker login ghcr.io on a laptop, or — inside the claude-workspace
-# pod, where there is no docker — buildctl + the in-cluster buildkitd
-# (infra/buildkit) + a GHCR PAT in ~/.docker/config.json.
+# Build and push to the private registry configured in values.yaml.
+# Bump image.tag and Chart version/appVersion before building, then upgrade.sh.
+# Registry credentials come from the developer Docker config; cluster nodes
+# authenticate through selfhosted/infra/registry's managed containerd config.
 
 set -euo pipefail
 
@@ -32,10 +27,10 @@ if command -v docker >/dev/null; then
   docker push "${IMAGE}"
 elif command -v buildctl >/dev/null; then
   # Workspace-pod path: remote build on the in-cluster buildkitd, which pushes
-  # straight to GHCR. Auth is forwarded per-session from ~/.docker/config.json.
+  # straight to the registry. Auth is forwarded per-session from ~/.docker/config.json.
   [[ -f "${HOME}/.docker/config.json" ]] || {
-    echo "missing ~/.docker/config.json — create the GHCR PAT file first"
-    echo "(see dev/claude-workspace/README.md, Cluster powers)"; exit 1; }
+    echo "missing ~/.docker/config.json — add the registry credential first (selfhosted/infra/registry/README.md)"
+    echo "(see selfhosted/infra/registry/README.md)"; exit 1; }
 
   echo "==> Building + pushing ${IMAGE} (buildctl → ${BUILDKIT_HOST:-unset})"
   buildctl build \
@@ -48,5 +43,3 @@ else
 fi
 
 echo "==> Done. Run upgrade.sh to roll the deployment onto the new image."
-echo "    (The GHCR package stays private; the chart's imageCredentials secret"
-echo "     is how nodes pull it.)"

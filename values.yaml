@@ -6,17 +6,15 @@
 # web/diemer-codes submodule pin and commit what shipped.
 
 image:
-  # Built + pushed to GHCR by build.sh. PRIVATE package, deliberately — the site
-  # is not public yet, and a public image would hand out the rendered bytes of
-  # the private posts repo. Pulls authenticate via the imageCredentials secret
-  # below instead of the anonymous-public convention old-diemer-codes uses.
-  repository: ghcr.io/zdiemer/diemer-codes
+  # Built and pushed to the private cluster registry. Nodes authenticate pulls
+  # through selfhosted/infra/registry's managed containerd configuration.
+  repository: registry.zachd.duckdns.org/zdiemer/diemer-codes
   tag: "2.1.0"
   # IfNotPresent — so NEVER reuse a tag; a rebuild over an existing tag will not
   # re-pull and the cluster keeps serving the old bytes.
   pullPolicy: IfNotPresent
 
-# Private GHCR image: set imageCredentials.pat in values.local.yaml (gitignored)
+# Optional legacy GHCR pull credentials, resolved from 1Password.
 # and the chart creates the docker-registry secret + wires it into the pod —
 # same pattern as finance/money. The PAT only needs read:packages.
 imageCredentials:

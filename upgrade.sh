@@ -43,8 +43,8 @@ LOCAL_VALUES="$(resolve_local_values "$HERE")" || exit 1
 [[ "$LOCAL_VALUES" == "${HERE}/"* ]] || trap 'rm -f "$LOCAL_VALUES"' EXIT INT TERM
 
 VALUE_ARGS=(-f "$VALUES")
-# values.local.yaml carries imageCredentials.pat (the GHCR read:packages PAT
-# for the private image). Gitignored; required for a fresh install to pull.
+# The vault overlay supplies authentication and any legacy GHCR pull credentials.
+# Cluster-registry pulls use the node-managed containerd credentials.
 [[ -f "$LOCAL_VALUES" ]] && VALUE_ARGS+=(-f "$LOCAL_VALUES")
 
 K="kubectl -n ${NAMESPACE}"
