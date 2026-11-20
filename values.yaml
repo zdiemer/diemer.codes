@@ -9,7 +9,7 @@ image:
   # Built and pushed to the private cluster registry. Nodes authenticate pulls
   # through selfhosted/infra/registry's managed containerd configuration.
   repository: registry.zachd.duckdns.org/zdiemer/diemer-codes
-  tag: "2.1.0"
+  tag: "2.1.1"
   # IfNotPresent — so NEVER reuse a tag; a rebuild over an existing tag will not
   # re-pull and the cluster keeps serving the old bytes.
   pullPolicy: IfNotPresent

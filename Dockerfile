@@ -51,7 +51,7 @@ RUN set -eux; \
 # -------------------------------------------------------------- runtime stage
 # Same base as web/old-diemer-codes and web/kelsey-green: uid 101, binds 8080,
 # proven on this cluster under readOnlyRootFilesystem.
-FROM nginxinc/nginx-unprivileged:1.29-alpine
+FROM nginx/nginx-unprivileged:1.31.9-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
